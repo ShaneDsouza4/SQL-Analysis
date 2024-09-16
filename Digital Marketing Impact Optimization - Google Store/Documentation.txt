@@ -1,0 +1,112 @@
+- Dataset:
+
+Analyzed the Google Merchandise Store dataset available on Kaggle, which includes data on website users in the US from October 1, 2016, to December 31, 2016. The dataset originates from the Google Merchandise Store, a real e-commerce platform that sells Google-branded products such as apparel, lifestyle items, and stationery from Google and its associated brands.
+
+
+- Situation:
+
+With multiple strategies and channels in use, it was difficult to accurately evaluate the impact of each marketing initiative and demonstrate their effectiveness to stakeholders. Inspired by data analysis, took the initiative to find out about;
+
+1. How do users interact with the platform? Can we find patterns to improve our marketing strategies?
+2. Are our promotions and discounts driving sales? Do they help with long-term customer loyalty or just short-term boosts?
+3. How does the website and mobile app experience affect sales and customer engagement? Are there areas that need improvement?
+4. Which markets or customer groups are the most profitable? Should we focus on new or growing markets?
+5. How well are we attracting new customers and keeping existing ones?
+6. Which marketing channels convert the most customers? Why do some channels perform better than others?
+
+
+- Task:
+
+As a data analysis, I took on the task of analyzing the performance of Google's e-commerce platform. My main goal was to identify actionable strategies to improve its overall performance. This involved focusing on key areas like customer acquisition, retention, monetization, and optimizing the use of marketing channels. The ultimate aim was to explore ways to boost overall revenue.
+
+
+- Action:
+
+I used SQL to create and merge multiple datasets into a unified one for in-depth analysis. I performed data preprocessing, including cleansing, to ensure accuracy and reliability. I then applied advanced string, date, and window functions to gain deeper insights into website performance, focusing on user interactions and the effectiveness of e-commerce strategies. Additionally, I analyzed various web traffic sources to identify the most effective channels for driving sales and conversions, turning data into actionable insights.
+
+1. Setup the database
+
+2. Combined Datasets, of the 3 months.
+
+3. Data Exploration: 
+During the exploration of the Google Merchandise Store dataset, I examined the initial rows to understand the available columns and the type of data they contained. Key columns such as fullvisitorid, visitid, and traffic source details like channelGrouping, source, and medium were observed, along with user engagement metrics (visits, pageviews, bounces) and e-commerce data (transactions, revenue). I began by checking for null values in the visitid column, ensuring data integrity, and found no missing values. However, further analysis revealed that visitid was not unique for each session, as it represents the session's start time, which can be the same for multiple users. To address this, I created a unique session identifier by combining fullvisitorid with visitid. This provided a more accurate representation of each session. Nonetheless, I encountered some duplicates, particularly when sessions spanned across midnight, resulting in the same unique_session_id for activities occurring before and after midnight. To resolve this, I decided to treat these as a single continuous session, simplifying the analysis without altering the session tracking mechanism.
+
+
+
+4. Business Insights
+
+a. Website Engagement by Day
+To gain a deeper understanding of website traffic, I analyzed daily visitor sessions to identify key patterns in user behavior. Using UTC time for consistency, I calculated the number of unique sessions per day by creating a unique session identifier from the fullvisitorid and visitid columns. The analysis revealed an increase in traffic leading up to December, likely due to the holiday season, with a clear pattern of higher traffic during weekdays and lower traffic over weekends.
+
+To further explore, I examined web traffic by day of the week, finding that visits peaked on Tuesdays and Wednesdays, with a noticeable decline during the weekends. This mid-week spike suggests that users are more engaged with the website during weekdays, providing valuable insights for optimizing content updates and marketing efforts during high-traffic periods.
+
+b. Website Engagement & Monetization by Day
+To gain more insight into how website traffic translates into sales, I analyzed the conversion rates by day of the week. By calculating the number of unique sessions and identifying which of those resulted in transactions, I could determine the conversion rate for each day. The analysis revealed that although Tuesdays had the highest number of visits, Mondays showed the highest conversion rate. On the other hand, weekends saw a significant drop in conversions, indicating that visitors are less likely to make purchases during this time, highlighting different purchasing behaviors between weekdays and weekends. This insight can inform marketing and promotional strategies aimed at boosting weekend sales.
+
+c. Website Engagement & Monetization by Device
+To refine the analysis, I examined web traffic and conversion rates across different device categories (desktop, tablet, and smartphone) to understand how device type impacts visits and revenue. By calculating the percentage of sessions and revenue for each device type, I found that while about 25% of sessions came from mobile devices, only 5% of revenue was generated through them. This disparity highlights the need to improve the mobile shopping experience. Optimizing mobile usability, streamlining the checkout process, and implementing mobile-specific promotions are crucial steps to better engage mobile users. Since many people browse on their phones during commutes or breaks, enhancing the mobile experience, or even developing a dedicated mobile app, could significantly boost revenue from this segment.
+
+
+d. Website Engagement & Monetization by Region
+To further understand mobile device usage and revenue generation, I analyzed regional differences in mobile sessions and conversions. The results revealed some notable insights: while only 1% of mobile sessions came from Washington, they contributed to 11% of mobile revenue. Similarly, Illinois accounted for 3% of sessions but 9% of revenue. These regions show higher conversion rates or transaction values despite fewer sessions, suggesting opportunities for targeted marketing campaigns and region-specific optimizations. By focusing marketing efforts on these high-performing regions, the company could potentially drive more revenue.
+
+One limitation is the presence of mobile sessions with missing regional data, where the region field is either blank or NULL. Collaborating with the Data Engineering team to resolve this issue would ensure more accurate data for future analyses.
+
+e. Website Retention
+Analyzing website retention, I focused on distinguishing between new and returning visitors to gauge user loyalty. The data shows that around 80% of users visit the website only once, indicating a need for stronger retention strategies, such as personalized marketing, loyalty programs, or retargeting campaigns to encourage repeat visits. This presents an opportunity to enhance user engagement and increase customer retention. On the other hand, the high percentage of new visitors demonstrates successful brand awareness efforts, which effectively attract users to the site. Improving elements like the user interface, content engagement, and navigation could further support retention initiatives.
+
+f. Website Acquisition
+As part of the analysis, I calculated the website's bounce rate to assess how effectively the site engages visitors after acquisition. The bounce rate measures the percentage of visitors who leave the site after viewing only one page, indicating whether the landing page or initial content meets visitor expectations. A bounce rate between 20-40% generally signals good engagement.
+
+However, to gain deeper insights and optimize acquisition strategies, it’s important to analyze bounce rates across different traffic channels. This will help tailor strategies to specific audiences, improve user interactions, and allocate marketing resources more effectively for better overall engagement and conversions.
+
+g. Website Acquisition by Channel
+To better understand the effectiveness of various marketing strategies, I analyzed the bounce rate by traffic channel. Organic Search, Paid Search, and Display channels exhibit bounce rates between 30-40%, indicating effective engagement that encourages visitors to explore beyond the landing page. The Referral channel, with the lowest bounce rate, shows strong performance. However, Direct, Social, and Affiliates, with bounce rates of 40-50%, highlight areas where improvements could boost engagement and retention.
+
+
+h. Website Acquisition & Monetization by Channel
+Expanding on the analysis, I incorporated key metrics such as average time on site, page views, revenue, and conversion rates to provide a fuller picture of each channel's performance. The Referral channel emerged as a strong performer, with the lowest bounce rate, highest conversion rate (7%), and substantial revenue, making it ideal for further partnerships. Organic Search, which drove the most sessions, had a solid 32% bounce rate and good conversion potential, demonstrating the effectiveness of SEO efforts. Direct traffic, while significant, showed a high bounce rate (46%) and moderate conversions, suggesting a need for more personalized engagement strategies. Social media, despite its high traffic, suffered from the lowest conversions, signaling a need for more targeted campaigns. Both Paid Search and Display had moderate bounce rates (34%) but could benefit from improved targeting to increase conversions. Affiliates, with the highest bounce rate and lowest conversions, require a reevaluation of partner quality to enhance performance.
+
+
+
+- Results
+
+In summary, here are the key strategies and insights derived from our analysis:
+
+1. Seasonal and Holiday Campaigns: Capitalize on holiday periods like December by creating themed promotions, exclusive deals, and holiday guides. Expanding this approach to other key months could boost revenue by 25%, similar to the December uplift.
+
+2. Maximize Monday Conversions: With Mondays showing the highest conversion rates but lower traffic, aim to increase Monday traffic by 10% to match Tuesday levels. Use targeted promotions and email/social media campaigns at the start of the week.
+
+3. Targeted Weekday Promotions: Utilize high Tuesday and Wednesday traffic by offering special promotions. Tailor email and social media campaigns to coincide with these active days for greater engagement.
+
+4. Weekend Engagement Strategies: Use retargeting ads and loyalty programs with weekend-specific promotions to increase off-peak traffic by 15% and drive sales.
+
+5. Enhance Mobile Experience: With only 5% of revenue from mobile sessions, optimize the mobile site, offer mobile-exclusive deals, and improve payment options to boost mobile shopping, especially during commutes and work breaks.
+
+6. Focus on High-Value Regions: Develop targeted marketing strategies for high-revenue regions like Washington and Illinois, using localized offers to maximize their higher spending.
+
+7. Strengthen User Engagement and Retention: Increase repeat visits by 10% through personalized content, loyalty programs, and retargeting campaigns. Focus on reducing the high bounce rate of direct traffic with tailored engagement strategies.
+
+8. Optimize Referral and Organic Channels: Boost referral traffic by 20% through partnerships, and continue improving SEO for Organic Search, which shows strong session numbers and conversion potential.
+
+9. Revamp Social Media and Paid Channels: Redesign social media campaigns for higher engagement and improve Paid Search and Display targeting to reduce bounce rates and enhance retention.
+
+10. Reevaluate Affiliate Strategies: Assess and improve affiliate partnerships by focusing on quality, restructuring underperforming affiliates, and enhancing relevance to address high bounce rates and low conversions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
